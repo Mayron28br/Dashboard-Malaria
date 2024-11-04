@@ -1,13 +1,13 @@
 import React from 'react'
-import './home.css'
+import './visualization.css'
 import Header from '../../components/Header'
 
-const home = () => {
+const visualization = () => {
   return (
     <div>
-      <Header />
+      <Header/>
     </div>
   )
 }
 
-export default home
+export default visualization
