@@ -1,0 +1,34 @@
+.InfoBlock {
+    display: flex;
+    color: var(--color-text-white);
+    background: linear-gradient(135deg, var(--color-dark-blue), var(--color-medium-blue), var(--color-light-blue));
+    width: 100%;
+    height: auto;
+}
+
+.text {
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 140%;
+    padding: 40px;
+    width: 60%;
+}
+
+.text h1 {
+    line-height: 100%;
+}
+
+.ImageBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: auto;
+    overflow: hidden;
+}
+
+.ImageBlock img {
+    width: 50%;
+    height: auto;
+}

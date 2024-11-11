@@ -1,0 +1,20 @@
+/* From Uiverse.io by arieshiphop */ 
+button {
+    font-size: 17px;
+    padding: 0.1rem 3em;
+    border: transparent;
+    background: var(--color-medium-blue);
+    color: var(--color-text-white);
+    border-radius: 4px;
+    width: auto;
+   }
+   
+   button:hover {
+    background: rgb(2,0,36);
+    background: var(--color-light-blue);
+    cursor: pointer;
+   }
+   
+   button:active {
+    transform: translate(0em, 0.2em);
+   }

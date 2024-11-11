@@ -1,0 +1,48 @@
+.InfoLink {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+.Text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 140%;
+    color: var(--color-text-white);
+    padding: 40px;
+    width: 60%;
+}
+
+.Text h1 {
+    line-height: 100%;
+    margin-bottom: 20px;
+}
+
+.Text h3 {
+    margin-top: 0%;
+    font-weight: 500;
+}
+
+.Link {
+    width: fit-content;
+}
+
+.Image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: 40%;
+    height: auto;
+    overflow: hidden;
+}
+
+.Image img {
+    width: 100%;
+    height: auto;
+}
