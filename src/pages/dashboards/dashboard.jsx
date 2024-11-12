@@ -8,16 +8,15 @@ import Papa from 'papaparse';
 ChartJS.register(CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend, LineElement, BarElement, ArcElement);
 
 const Dashboard = () => {
-  const [originalData, setOriginalData] = useState([]); // Dados completos do CSV
-  const [municipalities, setMunicipalities] = useState([]); // Lista de municípios
-  const [years, setYears] = useState([]); // Lista de anos
-  const [selectedMunicipality, setSelectedMunicipality] = useState(''); // Município selecionado
-  const [selectedYear, setSelectedYear] = useState(''); // Ano selecionado
-  const [chartData, setChartData] = useState(null); // Dados filtrados para o gráfico
-  const [chartType, setChartType] = useState('line'); // Tipo de gráfico selecionado
+  const [originalData, setOriginalData] = useState([]);
+  const [municipalities, setMunicipalities] = useState([]);
+  const [years, setYears] = useState([]);
+  const [selectedMunicipality, setSelectedMunicipality] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [chartData, setChartData] = useState(null);
+  const [chartType, setChartType] = useState('line');
 
   useEffect(() => {
-    // Carrega o CSV e processa os dados
     fetch('/malariaprepro.csv')
       .then((response) => {
         if (!response.ok) throw new Error('Erro ao carregar o arquivo CSV');
@@ -30,8 +29,6 @@ const Dashboard = () => {
           skipEmptyLines: true,
           complete: (result) => {
             const data = result.data;
-
-            // Obtenha lista de municípios e anos
             const allMunicipalities = [...new Set(data.map((row) => row['Município']))];
             const allYears = [...new Set(data.map((row) => new Date(row['Date']).getFullYear()))];
 
@@ -54,38 +51,50 @@ const Dashboard = () => {
 
   const generateMonthColors = () => {
     const colors = [
-      'rgba(75, 192, 192, 1)', // Janeiro
-      'rgba(153, 102, 255, 1)', // Fevereiro
-      'rgba(255, 159, 64, 1)', // Março
-      'rgba(255, 99, 132, 1)', // Abril
-      'rgba(54, 162, 235, 1)', // Maio
-      'rgba(50, 0, 255, 1)', // Junho
-      'rgba(201, 0, 255, 1)', // Julho
-      'rgba(100, 255, 218, 1)', // Agosto
-      'rgba(255, 0, 20, 1)', // Setembro
-      'rgba(30, 255, 30, 1)', // Outubro
-      'rgba(255, 132, 192, 1)', // Novembro
-      'rgba(255, 0, 128, 1)', // Dezembro
+      'rgba(255, 99, 132, 0.2)',  // Vermelho claro
+      'rgba(54, 162, 235, 0.2)',  // Azul claro
+      'rgba(255, 206, 86, 0.2)',  // Amarelo claro
+      'rgba(75, 192, 192, 0.2)',  // Verde água claro
+      'rgba(153, 102, 255, 0.2)', // Roxo claro
+      'rgba(255, 159, 64, 0.2)',  // Laranja claro
+      'rgba(201, 203, 207, 0.2)', // Cinza claro
+      'rgba(144, 238, 144, 0.2)', // Verde claro
+      'rgba(135, 206, 235, 0.2)', // Azul céu claro
+      'rgba(220, 20, 60, 0.2)',   // Carmim claro
+      'rgba(0, 128, 128, 0.2)',   // Verde água escuro claro
+      'rgba(218, 112, 214, 0.2)'  // Orquídea médio claro
     ];
     return colors;
   };
 
-  // Atualiza os dados do gráfico quando os filtros mudam
+    const borderColor = [
+      'rgb(255, 99, 132)',  // Vermelho
+      'rgb(54, 162, 235)',  // Azul
+      'rgb(255, 206, 86)',  // Amarelo
+      'rgb(75, 192, 192)',  // Verde água
+      'rgb(153, 102, 255)', // Roxo
+      'rgb(255, 159, 64)',  // Laranja
+      'rgb(201, 203, 207)', // Cinza
+      'rgb(144, 238, 144)', // Verde claro
+      'rgb(135, 206, 235)', // Azul céu
+      'rgb(220, 20, 60)',   // Carmim
+      'rgb(0, 128, 128)',   // Verde água escuro
+      'rgb(218, 112, 214)'  // Orquídea médio
+    ];
+
   useEffect(() => {
     if (!selectedMunicipality || !selectedYear) return;
 
-    // Agrupar dados por mês (ano e mês)
     const filteredData = originalData.filter(
       (row) =>
         row['Município'] === selectedMunicipality &&
         new Date(row['Date']).getFullYear() === parseInt(selectedYear, 10)
     );
 
-    // Agrupando os dados por mês
     const monthlyData = filteredData.reduce((acc, row) => {
       const date = new Date(row['Date']);
-      const month = date.getMonth(); 
-      const monthYear = `${month}`; 
+      const month = date.getMonth();
+      const monthYear = `${month}`;
       const notifications = parseInt(row['Notifications'], 10);
 
       if (!acc[monthYear]) {
@@ -96,27 +105,26 @@ const Dashboard = () => {
       return acc;
     }, {});
 
-    // Ordenar os meses
     const months = Object.keys(monthlyData).sort((a, b) => a - b);
-
-    // Converte os números dos meses em nomes
     const monthLabels = months.map((month) => getMonthName(parseInt(month, 10)));
     const data = months.map((month) => monthlyData[month]);
-
-    // Gerar cores para os meses
     const monthColors = generateMonthColors();
 
-    // Ajustar o gráfico com cores personalizadas para cada mês
+    const borderConfig = chartType === 'bar' ? {
+      borderColor: borderColor.slice(0, data.length),
+      borderWidth: 2,
+    } : {};
+
     setChartData({
       labels: monthLabels,
       datasets: [
         {
           label: `Notificações de Malária em ${selectedMunicipality} (${selectedYear})`,
           data: data,
-          borderColor: 'rgba(75, 192, 192, 1)',
-          backgroundColor: monthColors, 
+          backgroundColor: monthColors,
           fill: chartType === 'line',
           tension: 0.4,
+          ...borderConfig,
         },
       ],
     });
@@ -133,11 +141,6 @@ const Dashboard = () => {
         mode: 'index',
         intersect: false,
       },
-    },
-    elements: {
-      arc: {
-        borderWidth: 0, 
-      }
     },
     scales: {
       x: {
@@ -167,20 +170,20 @@ const Dashboard = () => {
       <Header />
       <div className='ContainerDashBoard'>
         <div className="Filters">
-          <label className='municipio'>
-            Município:
+          <div className='municipio'>
+            <p>Município:</p>
             <select value={selectedMunicipality} onChange={(e) => setSelectedMunicipality(e.target.value)}>
-              <option value="">Selecione um município</option>
+              <option value="">Selecione um Município</option>
               {municipalities.map((municipality) => (
                 <option key={municipality} value={municipality}>
                   {municipality}
                 </option>
               ))}
             </select>
-          </label>
+          </div>
 
-          <label className='ano'>
-            Ano:
+          <div className='ano'>
+            <p>Ano:</p>
             <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
               <option value="">Selecione um ano</option>
               {years.map((year) => (
@@ -189,16 +192,25 @@ const Dashboard = () => {
                 </option>
               ))}
             </select>
-          </label>
+          </div>
+          
+          <div className='grafico' value={chartType} onChange={(e) => setChartType(e.target.value)}>
+            <p>Tipo de Gráfico:</p>
+            <label className='TypeChart' htmlFor="line">
+              <input type="radio" value="line" id='line' checked={chartType === "line"}/>
+              <span>Linha</span>
+            </label>
+          
+            <label className='TypeChart' htmlFor="bar">
+              <input type="radio" value="bar" id='bar' checked={chartType === "bar"}/>
+              <span>Barra</span>
+            </label>
 
-          <label className='grafico'>
-            Tipo de gráfico:
-            <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
-              <option value="line">Linha</option>
-              <option value="bar">Barra</option>
-              <option value="pie">Pizza</option>
-            </select>
-          </label>
+            <label className='TypeChart' htmlFor="pie">
+              <input type="radio" value="pie" id='pie' checked={chartType === "pie"}/>
+              <span>Pizza</span>
+            </label>
+          </div>
         </div>
 
         <div className="ChartDashBoard">
