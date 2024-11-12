@@ -2,8 +2,7 @@
     display: flex;
     color: var(--color-text-white);
     background: linear-gradient(135deg, var(--color-dark-blue), var(--color-medium-blue), var(--color-light-blue));
-    width: 100%;
-    height: auto;
+    padding: 5rem 2rem;
 }
 
 .text {
@@ -11,10 +10,9 @@
     font-size: 1.1rem;
     font-weight: 300;
     line-height: 140%;
-    padding: 40px;
+    padding: 0 2rem;
     width: 60%;
 }
-
 .text h1 {
     line-height: 100%;
 }

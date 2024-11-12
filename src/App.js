@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home/Home';
 import About from './pages/about/about';
-import Dashboard from './pages/dashboards/dashboard';
-import Visualization from './pages/visualization/visualization';
+import Dashboard from './pages/dashboards/Dashboard';
+import Visualization from './pages/visualization/Visualization';
 
 function App() {
   return (

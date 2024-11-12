@@ -1,0 +1,45 @@
+.ContainerDashBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem 2rem;
+    height: 100vh;
+}
+
+.Filters {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 2rem;
+    background-color: var(--color-medium-blue);
+    height: 80%;
+    border-radius: 1rem 0 0 1rem;
+}
+
+.municipio {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+}
+
+.ano {
+    display: flex;
+    flex-direction: column;
+}
+
+.grafico {
+    display: flex;
+    flex-direction: column;
+}
+
+.ChartDashBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-black);
+    background-color: var(--color-off-white);
+    padding: 2em 0rem;
+    height: 80%;
+    width: 80%;
+    border-radius: 0 1rem 1rem 0;
+}
+

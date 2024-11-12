@@ -1,8 +1,8 @@
 .InfoLink {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     height: auto;
+    padding: 2rem 2rem;
 }
 
 .Text {
@@ -14,13 +14,14 @@
     font-weight: 300;
     line-height: 140%;
     color: var(--color-text-white);
-    padding: 40px;
+    padding: 0 2rem;
     width: 60%;
 }
 
 .Text h1 {
     line-height: 100%;
     margin-bottom: 20px;
+    color: var(--color-light-blue);
 }
 
 .Text h3 {
