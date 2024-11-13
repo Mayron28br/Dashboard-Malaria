@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/dashboard-malaria/static/css/main.8fd0cc16.css",
+    "main.js": "/dashboard-malaria/static/js/main.8b76bcec.js",
+    "static/js/453.59b8a61b.chunk.js": "/dashboard-malaria/static/js/453.59b8a61b.chunk.js",
+    "static/media/chart-image.png": "/dashboard-malaria/static/media/chart-image.421dfafd5f8a1c021c6a.png",
+    "static/media/visualizacao.png": "/dashboard-malaria/static/media/visualizacao.c0953341af3ea158ef75.png",
+    "static/media/Dashboard.png": "/dashboard-malaria/static/media/Dashboard.0f382b41b8f7c72f9217.png",
+    "index.html": "/dashboard-malaria/index.html",
+    "main.8fd0cc16.css.map": "/dashboard-malaria/static/css/main.8fd0cc16.css.map",
+    "main.8b76bcec.js.map": "/dashboard-malaria/static/js/main.8b76bcec.js.map",
+    "453.59b8a61b.chunk.js.map": "/dashboard-malaria/static/js/453.59b8a61b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8fd0cc16.css",
+    "static/js/main.8b76bcec.js"
+  ]
+}
